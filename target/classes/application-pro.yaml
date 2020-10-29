@@ -1,0 +1,27 @@
+spring:
+  mvc:
+    favicon:
+      enabled: false
+    date-format: yyyy-mm-dd
+  thymeleaf:
+    cache: false
+
+
+  messages:
+    basename: i18n.login
+
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/springboot?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    root: warn
+    com.lrm: info
+  file:
+    path: log/blog-pro.log
+server:
+  port: 8081
+

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>管理</title>
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/semantic.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/my.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
+
+</head>
+<body >
+
+<!--导航-->
+<!--    <div th:insert="~{commons/common::headerbar}"></div>-->
+<div th:insert="~{/admin/admin-common::header(n=1)}"></div>
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="left menu">
+            <a href="#" th:href="@{/admin/blogs/input}" class=" item">发布</a>
+            <a href="#" th:href="@{/admin/blogs}" class="teal active item">列表</a>
+        </div>
+    </div>
+</div>
+
+
+
+<!--中间内容-->
+<div  class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+<!--        th:action="@{/admin/blogs/search}"-->
+        <form th:action="@{/admin/blogs/search}" method="post" class="ui segment form">
+            <div class="inline fields">
+                <div class="field">
+                    <input type="text" id="title" name="title" placeholder="标题">
+                </div>
+                <div class="field">
+                    <div class="ui labeled action input">
+                        <div class="ui type selection dropdown">
+                            <input type="hidden" id="typeId" name="typeId">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">分类</div>
+                            <div class="menu">
+                                <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.key}" th:text="${type.value}">错误日志</div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="recommend" name="recommend">
+                        <label for="recommend">推荐</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <button  type="submit" id="search-btn" class="ui mini teal basic button" ><i class="search icon"></i>搜索</button>
+                </div>
+            </div>
+        </form>
+        <div id="table-container">
+            <table th:fragment="blogList" class="ui compact teal table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>标题</th>
+                    <th>类型</th>
+                    <th>推荐</th>
+                    <th>状态</th>
+                    <th>分类</th>
+                    <th>更新时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="tabletext">
+                    <tr th:each="blog, iterStat: ${list}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${blog.title}">刻意练习清单</td>
+                        <td th:text="${blog.flag}">认知升级</td>
+                        <td th:text="${blog.recommend} ? '是':'否'">是</td>
+                        <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
+                        <td th:text="${types.get(blog.type)}">草稿</td>
+                        <td th:text="${blog.updateTime}">2017-10-02 09:45</td>
+                        <td>
+                            <a href="#" th:href="@{'/admin/blogs/update/'+${blog.id}}" class="ui mini teal basic button">编辑</a>
+                            <a href="#" th:href="@{'/admin/blogs/delete/'+${blog.id}}" class="ui mini red basic button">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <!--<th colspan="7">
+                        <div class="ui mini pagination menu" th:if="${page.totalPages}>1" >
+                            <a onclick="page(this)" th:attr="data-page=${page.number}-1" class="item" th:unless="${page.first}">上一页</a>
+                            <a onclick="page(this)" th:attr="data-page=${page.number}+1" class=" item" th:unless="${page.last}">下一页</a>
+                        </div>
+                        <a href="#" th:href="@{/admin/blogs/input}" class="ui mini right floated teal basic button">新增</a>
+                    </th>-->
+                </tr>
+                </tfoot>
+            </table>
+
+            <!--<div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示：</div>
+                <p th:text="${message}">恭喜，操作成功！</p>
+            </div>-->
+
+        </div>
+
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--footer-->
+<div th:insert="~{/common::footer}"></div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script type="javascript" th:src="@{/js/semantic.min.js}" ></script>
+
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script>
+   /* function check(){
+        alert("搜索");
+        $.post({
+            url:"/admin/blogs/search",
+            data:{"title":$("#title").val(),"typeId":$("#typeId").val(),"recommend":$("#recommend").val()},
+            success:function (data){
+                console.log(data);
+                alert(data.total);
+                var str = "";//把数据组装起来
+                for (var i = 0; i < data.list.length; i++) {
+                    str += "<tr><td>" + 1 +
+                        "</td><td>" + data.list[i].title +
+                        "</td><td>" + data.list[i].flag +
+                        "</td><td>" + data.list[i].recommend +
+                        "</td><td>" + data.list[i].published +
+                        "</td><td>" + data.list[i].typeId +
+                        "</td><td>" + data.list[i].updateTime +
+                        "</td></tr>";
+                }
+                $("#tableText").html(str);//把拼好的样式填到指定的位置，一个Ajax的表格刷新功能就完成了
+            }
+        })
+    }*/
+</script>
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+
+    });
+
+    //消息提示关闭初始化
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
+
+    $('#clear-btn')
+        .on('click', function() {
+            $('.ui.type.dropdown')
+                .dropdown('clear')
+            ;
+        })
+    ;
+
+    function page(obj) {
+        $("[name='page']").val($(obj).data("page"));
+        loaddata();
+    }
+
+
+
+
+</script>
+</body>
+</html>

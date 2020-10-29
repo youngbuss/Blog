@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>关于我</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/semantic.min.css" th:href="@{/css/semantic.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/css/my.css" th:href="@{/css/my.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
+
+</head>
+<body >
+
+<!--导航-->
+<!--    <div th:insert="~{commons/common::headerbar}"></div>-->
+<div th:insert="~{common::headerbar(active='aboutme.html')}"></div>
+
+
+<!--中间内容-->
+<div  class="m-container m-padded-tb-big animated fadeIn">
+    <div class="ui container">
+
+        <div class="ui stackable grid">
+            <div class="eleven wide column">
+                <div class="ui segment">
+                    <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=772062526,1469719934&fm=26&gp=0.jpg" alt="" class="ui rounded image">
+                </div>
+            </div>
+            <div class="five wide column">
+                <div class="ui top attached segment">
+                    <div class="ui header">关于我</div>
+                </div>
+                <div class="ui attached segment">
+                    <p class="m-text">不斯 编程小菜鸡 只是想要找到一个好工作而已哈哈哈</p>
+                    <p class="m-text">热爱编程，喜欢折腾，正在探索高效学习编程技术的方法...</p>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui orange basic  label">编程</div>
+                    <div class="ui orange basic  label">体育</div>
+                    <div class="ui orange basic  label">宝可梦</div>
+                    <div class="ui orange basic  label">睡觉</div>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui teal basic  label m-margin-tb-tiny">Java</div>
+                    <div class="ui teal basic  label m-margin-tb-tiny">Pokemon</div>
+                    <div class="ui teal basic  label m-margin-tb-tiny">Python</div>
+                    <div class="ui teal basic  label m-margin-tb-tiny">Soccer</div>
+                </div>
+                <div class="ui bottom attached segment">
+                    <a th:href="@{https://github.com/youngbuss}" target="_blank" class="ui circular icon button"><i class="github icon"></i></a>
+                    <a href="#" class="ui wechat circular icon button"><i class="weixin icon"></i></a>
+                    <a href="#" class="ui qq circular icon button" data-content="1669337196" data-position="bottom center"><i class="qq icon"></i></a>
+                </div>
+
+                <div class="ui wechat-qr flowing popup transition hidden">
+                    <img th:src="@{/image/myinf.png}" alt="" class="ui rounded image" style="width: 110px">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<!--footer-->
+<div th:insert="~{common::footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script type="javascript" th:src="@{/js/semantic.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.wechat').popup({
+        popup : $('.wechat-qr'),
+        position: 'bottom center'
+    });
+    $('.qq').popup();
+</script>
+</body>
+</html>

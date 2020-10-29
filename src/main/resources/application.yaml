@@ -1,0 +1,21 @@
+spring:
+  mvc:
+    favicon:
+      enabled: false
+    date-format: yyyy-mm-dd
+  thymeleaf:
+    cache: false
+
+
+  messages:
+    basename: i18n.login
+
+  profiles:
+    active: dev
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.yang.pojo
+  mapper-locations: classpath:mybatis/*.xml
+
