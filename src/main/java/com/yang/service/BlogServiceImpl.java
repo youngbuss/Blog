@@ -50,7 +50,7 @@ public class BlogServiceImpl  implements BlogService{
     public List<Blog> listBlog(int current, int size, HashMap<String,Object> map) {
         Page<Blog> page = new Page<>(current,size);
         String title = (String)map.get("title");
-        int type = (int)map.get("type");
+        Long type = map.get("type");
         int r = (int)map.get("recommend");
         QueryWrapper<Blog> wrapper = new QueryWrapper<>();
         if (title!=null)

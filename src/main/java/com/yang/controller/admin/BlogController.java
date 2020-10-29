@@ -68,7 +68,7 @@ public class BlogController {
     }
 
     @RequestMapping("/search")
-    public Object search(String title, int typeId, String recommend,Model model) throws Exception{
+    public Object search(String title, Long typeId, String recommend,Model model) throws Exception{
         Map<String,Object> res= new HashMap<>();
         List<Type> type = typeServiceimpl.listType();
         HashMap<Long,String> types = new HashMap<Long, String>();
